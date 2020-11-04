@@ -1,0 +1,2 @@
+var container = document.querySelector("#post-<%= @post.id%>");
+container.innerHTML= "<%= escape_javascript render(partial: 'show') %>"
