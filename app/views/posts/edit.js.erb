@@ -1,2 +1,2 @@
 var container = document.querySelector("#post-<%= @post.id%>");
-container.innerHTML= "<%= escape_javascript render(partial: 'edit') %>"
+container.innerHTML= "<%= escape_javascript render(partial: 'edit', locals: {post: @post, action_method: :put}) %>"

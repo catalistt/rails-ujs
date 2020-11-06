@@ -1,33 +1,33 @@
 <p id="notice"><%= notice %></p>
-
-<h1>Posts</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Status</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @posts.each do |post| %>
-      <tr>
-        <td><%= post.title %></td>
-        <td><%= post.description %></td>
-        <td><%= post.status %></td>
-        <td><%= link_to 'Show', post, remote: true %></td>
-        <td><%= link_to 'Edit', edit_post_path(post), remote: true %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, remote: true, data: { confirm: '¿Estas segura/o de eliminar el registro?' } %></td>
-      </tr>
-      <tr id="post-<%= post.id %>">
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
 <%= link_to 'New Post', new_post_path, remote: true %>
+
+<div class="row">
+  <div class="col-8 offset-2">
+    <%= form_with url: search_posts_path, remote: true, class: "form-inline mb-3" do |f| %>
+      <div class="form-group">
+        <%= f.text_field :search, class: "form-control"%>
+      </div>
+      <%= f.submit 'Buscar', class: "btn btn-success ml-1" %>
+    <% end %>
+  </div>
+</div>
+
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Status</th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @posts.each do |post| %>
+            <%= render 'post', post: post %>
+        <% end %>
+      </tbody>
+    </table>
+
+    <br>
+

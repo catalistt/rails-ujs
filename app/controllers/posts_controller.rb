@@ -7,6 +7,11 @@ class PostsController < ApplicationController
     @posts = Post.all
   end
 
+  def search
+    search_text = "%#{params[:search]}"
+    @posts = Post.where('lower(title) LIKE ? OR lower(description) LIKE ?', search_text, search_text)
+  end
+
   # GET /posts/1
   # GET /posts/1.json
   def show
@@ -30,9 +35,11 @@ class PostsController < ApplicationController
       if @post.save
         format.html { redirect_to @post, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
+        format.js { }
       else
         format.html { render :new }
         format.json { render json: @post.errors, status: :unprocessable_entity }
+        format.js { }
       end
     end
   end
@@ -44,9 +51,11 @@ class PostsController < ApplicationController
       if @post.update(post_params)
         format.html { redirect_to @post, notice: 'Post was successfully updated.' }
         format.json { render :show, status: :ok, location: @post }
+        format.js { }
       else
         format.html { render :edit }
         format.json { render json: @post.errors, status: :unprocessable_entity }
+        format.js { }
       end
     end
   end

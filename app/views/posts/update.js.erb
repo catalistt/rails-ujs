@@ -1,0 +1,1 @@
+$("#post-row-<% post.id %>").html("<%= escape_javascript render(partial: 'post', locals: { post: @post } ) %>")
